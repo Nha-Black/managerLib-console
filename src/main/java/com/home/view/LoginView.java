@@ -39,7 +39,7 @@ public class LoginView{
         selected.setColor("\033[36m");
     }
     private static void draw(){
-        System.out.print("\033[H");
+        System.out.print("\033[H");//xóa màn hình console
         // System.out.flush(); 
         
         userField.draw();
@@ -49,38 +49,15 @@ public class LoginView{
         label1.draw();
         label2.draw();
     }
-    private static void control(){
-        Scanner sca = new Scanner(System.in);
-        Cursor.move(selected.getX()+1, selected.getY()+1);
-        Key key;
-        while(true){
-            key=KeyPress.Listen();
-            if(key!=null){
-                if(key==Key.DOWN){
-                    selected.setColor("\033[0m");
-                    index= (index+1) % 3;
-                } else if(key==Key.UP){
-                    selected.setColor("\033[0m");
-                    index = (index-1+3) % 3;
-                } else if(key==Key.ENTER){
-                    if (selected==but){
-                        Cursor.move(1, selected.getY()+3);
-                        System.out.println(userField.getText());
-                        System.out.println(passField.getText());
-                    }
-                    break;
-                } else if(key==Key.OTHER){
-                    // Cursor.move(selected.getX()+1, selected.getY());
-                    System.out.print((char)key.getCode());
-                    String text = sca.next();
-                    if(selected==userField){
-                        userField.setText((char)key.getCode()+text);
-                    } else if(selected==passField){
-                        passField.setText((char)key.getCode()+text);
-                    }
-
-                }
-                switch (index) {
+    private static void controlMove(Key key){
+        selected.setColor("\033[0m");//đặt màu về mặt định
+        if(key==Key.DOWN){         
+            index= (index+1) % 3;
+        } else if(key==Key.UP){
+            index = (index-1+3) % 3;
+        }
+        //index có giá trị từ 0 ->3 đại diện cho 3 thành phần bên dưới
+        switch (index) {
                     case 0:
                         selected = userField;
                         break;
@@ -93,13 +70,36 @@ public class LoginView{
                     default:
                         break;
                 }
-                selected.setColor("\033[36m");         
-                draw();
-                Cursor.move(selected.getX()+1, selected.getY()+1);
+        selected.setColor("\033[36m");      
+        String text = selected == userField ? userField.getText() : passField.getText();   
+        draw();
+        Cursor.move(selected.getX()+text.length()+1, selected.getY()+1);
+    }
+    private static void control(){
+        Cursor.move(selected.getX()+1, selected.getY()+1);
+        Key key;
+        while(true){
+            key=KeyPress.Listen();
+            if(key!=null){ 
+                if(key==Key.DOWN || key==Key.UP){
+                    controlMove(key);
+                }
+                else if(key==Key.ENTER){
+                    if (selected==but){
+                        Cursor.move(1, selected.getY()+3);
+                        System.out.println(userField.getText());
+                        System.out.println(passField.getText());
+                    }
+                    break;
+                } else if(key==Key.OTHER){   
+                    if (selected == userField) {
+                        userField.enter(key);
+                    } else if (selected == passField) {
+                        passField.enter(key);
+                    }
+                }  
             }
-            
         }
-        
     }
     public static void main(String[] args) {
         // try {

@@ -1,5 +1,5 @@
 package com.home.component;
-import javax.swing.JTextField;
+
 public class Field extends Box {
     private String text;
 
@@ -10,9 +10,16 @@ public class Field extends Box {
     
     @Override
     public void draw() {
-        Cursor.move(x+1, y);
-        System.out.print(text);
+        drawText();
         super.draw();
+    }
+    public void drawText(){
+        Cursor.move(x+1, y+1); 
+        System.out.print(text);
+    }
+    public void enter(Key key){
+        text+= (char) key.getCode();
+        drawText();
     }
 
     public String getText() {
