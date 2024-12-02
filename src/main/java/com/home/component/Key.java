@@ -7,6 +7,9 @@ public enum Key {
     RIGHT(77),
     UP(72),
     DOWN(80),
+    // BACKSPACE(8),
+    DELETE(83),
+    SPACE(32),
     OTHER(0);
 
     private int code;

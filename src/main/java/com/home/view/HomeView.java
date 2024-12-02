@@ -45,7 +45,7 @@ public class HomeView {
         exit.setX(box.getX()+(box.getWidth()-exit.getWidth())/2);
         exit.setColor("\033[34m");
 
-        System.out.println("\033[?25l");//ẩn con trỏ <> ?25h
+        Cursor.hidden();
         index =0;
         selected = book;
         selected.setTextColor("\033[35m");

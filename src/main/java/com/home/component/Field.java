@@ -18,7 +18,15 @@ public class Field extends Box {
         System.out.print(text);
     }
     public void enter(Key key){
-        text+= (char) key.getCode();
+        if(key.getCode()==8){
+            if(text.length()>0){
+                text = text.substring(0,text.length()-1);
+                Cursor.move(x+1+text.length(), y+1);
+                System.out.println(" ");
+            }
+        }else{
+            text+= (char) key.getCode();
+        }
         drawText();
     }
 
