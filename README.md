@@ -7,7 +7,6 @@ repository ==> https://github.com/Nha-Black/managerLib-console.git
 -100% viết bằng java
 - Thư viện
   + jackson: dùng để xử lý dữ liệu json
-  + Lanterna: tạo GUI (giao diện người dùng)
 
 2.Mô tả chức năng
 - Xem thông tin tất cả các sách có trong thư viện

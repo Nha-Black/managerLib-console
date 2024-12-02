@@ -1,7 +1,5 @@
 package com.home.view;
 
-import java.util.Scanner;
-
 import com.home.component.Box;
 import com.home.component.Button;
 import com.home.component.Cursor;

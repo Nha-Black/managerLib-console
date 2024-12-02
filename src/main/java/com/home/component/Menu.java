@@ -21,6 +21,7 @@ public class Menu extends Box{
     public Menu(int x, int y) {
         super(x, y);
         items = new ArrayList<>();
+        init();
     }
     public void addItem(String item){
         items.add(item);
@@ -46,8 +47,17 @@ public class Menu extends Box{
             return index;
         }
         draw();
-        return -1;
-        
+        return -1; 
+    }
+    private void init(){
+        addItem("sách");
+        addItem("sinh viên");
+        addItem("Mượn sách");
+        display();
+    
+    }
+    public static void main(String[] args) {
+        new Menu(5,5);
     }
     
     
