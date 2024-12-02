@@ -1,0 +1,4 @@
+1, John Doe, Male, 123456789, IT, john.doe@example.com, 1990-01-01, [Book1, Book2], 5
+2, Jane Smith, Female, 987654321, HR, jane.smith@example.com, 1985-05-15, [Book3, Book4, Book5], 3
+3, Alice Johnson, Female, 555123456, Marketing, alice.johnson@example.com, 1992-07-20, [Book6], 7
+4, Bob Brown, Male, 444987654, Finance, bob.brown@example.com, 1988-11-25, [Book7, Book8, Book9], 4
