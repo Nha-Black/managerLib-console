@@ -14,16 +14,17 @@ public class LoginControl {
 
     public LoginControl() {
         init();
-        Account acc = new Account();
+        Account acc;
         while(true){
-            acc = view.control();//lấy user và pass
+            view.control();//lấy user và pass
+            acc= view.getAccount();
             if (checkAccount(acc)) break;
             else{
                 view.mess("tài khoản không tồn tại");
             }
         }
         Cursor.clear();
-        System.out.println("đăng nhập thành công");
+        new HomeControl();
     }
     private void init(){
         accounts = new ArrayList<>();

@@ -6,11 +6,13 @@ public class Button extends Box{
 
     public Button(int x, int y, String text) {
         super(x, y, text.length()+2, 2);
+        setWidth(text.length()+2);
         this.text = text;
         
     }
     public void setText(String text){
         this.text= text;
+        setWidth(text.length()+2);
     }
     public void setTextColor(String color){
         this.textColor = color;

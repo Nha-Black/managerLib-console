@@ -3,6 +3,9 @@ package com.home.component;
 public class Field extends Box {
     private String text;
     private String textColor = Color.RESET;
+    
+    public Field() {
+    }
 
     public Field(int x, int y, int width, int height) {       
         super(x, y, width, height);
@@ -41,6 +44,11 @@ public class Field extends Box {
 
     public void setTextColor(String textColor) {
         this.textColor = textColor;
+        drawText();
+    }
+    public void setSelected(String color){
+        setColor(color);
+        setTextColor(color);
     }
     
 }

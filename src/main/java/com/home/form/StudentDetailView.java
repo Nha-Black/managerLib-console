@@ -7,11 +7,7 @@ import com.home.component.Field;
 import com.home.component.Key;
 import com.home.component.KeyPress;
 import com.home.component.Label;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import com.home.models.Student;
 
 public class StudentDetailView {
     private static Field idField, nameField, birthDayField, genderField, phoneField, departmentField, emailField, borrowBookField;
@@ -127,16 +123,17 @@ public class StudentDetailView {
                     controlMove(key);
                 } else if (key == Key.ENTER) {
                     if (selected == addButton) {
-                        return new Student(
-                                idField.getText(),
-                                nameField.getText(),
-                                LocalDate.parse(birthDayField.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                                genderField.getText(),
-                                phoneField.getText(),
-                                departmentField.getText(),
-                                emailField.getText(),
-                                new ArrayList<>(List.of(borrowBookField.getText().split(",")))
-                        );
+                        return null;
+                        // return new Student(
+                        //         idField.getText(),
+                        //         nameField.getText(),
+                        //         LocalDate.parse(birthDayField.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        //         genderField.getText(),
+                        //         phoneField.getText(),
+                        //         departmentField.getText(),
+                        //         emailField.getText(),
+                        //         new ArrayList<>(List.of(borrowBookField.getText().split(",")))
+                        // );
                     }
                 } else if (key == Key.OTHER && selected instanceof Field) {
                     ((Field) selected).enter(key);

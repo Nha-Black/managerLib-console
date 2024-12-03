@@ -1,57 +1,67 @@
 package com.home.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.home.component.Box;
 import com.home.component.Button;
+import com.home.component.Color;
 import com.home.component.Cursor;
 import com.home.component.Key;
 import com.home.component.KeyPress;
 import com.home.component.Label;
-import com.home.component.Menu;
 
 public class HomeView {
     private Label title;
-    private Menu menu;
     private Button book;
     private Button student;
     private Button borrow;
     private Button exit;
     private Box box;
     private int index;
-    private Button selected;
+    private List<Button> buttons;
+    // private Button selected;
 
 
     public HomeView() {
         init();
-        draw();
-        control();
+        // draw();
+        // control();
     }
     
     private void init(){
-        book = new Button(5, 2, "Thông tin sách");
-        student = new Button(5, 5, "Thông tin Sinh Viên");
-        borrow = new Button(5, 8, "Thông tin mượn sách");
-        exit = new Button(0, 11, "thoát");
-        int maxWidth = book.getWidth();
-        if (student.getWidth()>maxWidth) maxWidth= student.getWidth();
-        if (borrow.getWidth()>maxWidth) maxWidth= borrow.getWidth();
-        box =  new Box(2, 1, maxWidth+4, 13);
-        box.setColor("\033[32m");
-        book.setX(box.getX()+(box.getWidth()-book.getWidth())/2);
-        book.setColor("\033[34m");
-        student.setX(box.getX()+(box.getWidth()-student.getWidth())/2);
-        student.setColor("\033[34m");
-        borrow.setX(box.getX()+(box.getWidth()-borrow.getWidth())/2);
-        borrow.setColor("\033[34m");
-        exit.setX(box.getX()+(box.getWidth()-exit.getWidth())/2);
-        exit.setColor("\033[34m");
-
         Cursor.hidden();
+        title = new Label(0, 4, "Library");
+        title.setTextColor(Color.PURPLE);
+        book = new Button(5, 6, "Thông tin sách");
+        student = new Button(5, 9, "Thông tin Sinh Viên");
+        borrow = new Button(5, 12, "Thông tin mượn sách");
+        exit = new Button(0, 15, "thoát");
+        int maxWidth = book.getWidth();
+        
+        box =  new Box(2, 2, 0, 17);
+        box.setColor(Color.GREEN);
+
+        buttons = new ArrayList<>();
+        buttons.add(book);
+        buttons.add(student);
+        buttons.add(borrow);
+        buttons.add(exit);
+        for(Button but : buttons){
+            if(but.getWidth()>maxWidth) maxWidth= but.getWidth();
+        }
+        box.setWidth(maxWidth+4);
+        for(Button but : buttons){
+            but.setX(box.getX()+(box.getWidth()-but.getWidth())/2);
+            
+        }
+        title.setX(box.getX()+(box.getWidth()-title.getText().length())/2);
         index =0;
-        selected = book;
-        selected.setTextColor("\033[35m");
+        buttons.get(index).setSelected(Color.CYAN);
     }
     public void draw(){
-        System.out.print("\033[H");
+        Cursor.topleft();
+        title.draw();
         book.draw();
         student.draw();
         borrow.draw();
@@ -59,25 +69,10 @@ public class HomeView {
         box.draw();
     }
     private void controlMove(Key key){
-        selected.setTextColor("\033[0m");
+        buttons.get(index).setSelected(Color.RESET);
         if(key==Key.UP) index = (index-1+4) % 4;
         else if(key==Key.DOWN) index = (index+1) % 4;
-        switch (index) {
-            case 0:
-                selected=book;
-                break;
-            case 1:
-                selected=student;
-                break;
-            case 2:
-                selected=borrow;
-                break;
-            case 3:
-                selected=exit;
-            default:
-                break;
-        }
-        selected.setTextColor("\033[35m");
+        buttons.get(index).setSelected(Color.CYAN);
         draw();
     }
     
@@ -101,7 +96,7 @@ public class HomeView {
         }
     }
 
-    public void control(){
+    public int control(){
         Key key;
         while (true) { 
             key = KeyPress.Listen();
@@ -109,13 +104,13 @@ public class HomeView {
                 if(key==Key.UP || key==Key.DOWN){
                     controlMove(key);
                 } else if(key==Key.ENTER){
-                    controlSelected();
+                    return index;
                 }
             }
         }
     }
     public static void main(String[] args) {
-        System.out.print("\033[H\033[2J");
+        Cursor.clear();
         new HomeView();
     }
 }

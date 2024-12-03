@@ -1,84 +1,41 @@
 package com.home.control;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.home.dao.BookDao;
-import com.home.dao.StudentDao;
-import com.home.models.Book;
-import com.home.models.Student;
+import com.home.component.Cursor;
+import com.home.view.HomeView;
 
 public class HomeControl {
-    private List<Book> books;
-    private List<Student> students;
-
-
-    public HomeControl() {
-
+    private HomeView view;
+    public HomeControl(){
+        view = new HomeView();
+        // view.draw();
+        control();
     }
-
-    public void addBook(Book book) {
-        books.add(book);
-    }
-
-    public void addStudent(Student student) {
-        students.add(student);
-    }
-    private void init(){
-        books = new ArrayList<>();
-        students = new ArrayList<>();
-        books = BookDao.read();
-        // students = StudentDao.read();
-    }
-
-
-    public void updateBook(List<Book> updatedBooks) {
-        for (Book updatedBook : updatedBooks) {
-            for (Book book : books) {
-                if (book.getId().equals(updatedBook.getId())) {
-                    book.setTitle(updatedBook.getTitle());
-                    book.setAuthor(updatedBook.getAuthor());
-                    book.setPublisher(updatedBook.getPublisher());
-                    book.setPublicationYear(updatedBook.getPublicationYear());
-                    book.setLanguage(updatedBook.getLanguage());
-                    book.setPageCount(updatedBook.getPageCount());
-                }
-            }
+    private void control(){
+        int index;
+        while (true) { 
+            Cursor.clear();
+            view.draw();
+            index = view.control();      
+            switch (index) {
+                case 0:
+                    new BookControl();
+                    break;
+                case 1:
+                    new StudentControl();
+                    break;
+                case 2:
+                    Cursor.clear();
+                    new BorrowControl();
+                    break;
+                case 3:
+                    Cursor.clear();
+                    System.out.println("kêt thúc chương trình");
+                    System.exit(0);
+                    break;
+                default:
+                    break;
+            }   
         }
-    }
-
-    public void updateStudent(List<Student> students) {
-        this.students = students;
-        StudentDao.write(students);
-    }
-
-
-    public boolean searchBook(Book targetBook) {
-        for (Book book : books) {
-            if (book.getId().equals(targetBook.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean searchStudent(Student targetStudent) {
-        for (Student student : students) {
-            if (student.getId().equals(targetStudent.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-
-    public List<Student> checkOverTime() {
-        List<Student> overTimeStudents = new ArrayList<>();
-        for (Student student : students) {
-            // if (student.getBorrowBook().size() > student.getBorrowLimit()) {
-            //     overTimeStudents.add(student);
-            // }
-        }
-        return overTimeStudents;
+        
     }
 }

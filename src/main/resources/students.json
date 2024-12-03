@@ -7,11 +7,11 @@
   "email" : "johndoe@example.com",
   "birthDay" : [ 2000, 1, 15 ],
   "borrowedBook" : [ {
-    "id" : "B001",
-    "date" : [ 2023, 12, 1 ]
+    "id" : "2",
+    "date" : [ 2024, 11, 20 ]
   }, {
-    "id" : "B002",
-    "date" : [ 2023, 12, 2 ]
+    "id" : "2",
+    "date" : [ 2024, 12, 2 ]
   } ]
 }, {
   "id" : "S002",
@@ -20,9 +20,18 @@
   "phone" : "987654321",
   "department" : "Mathematics",
   "email" : "janedoe@example.com",
-  "birthDay" : [ 2001, 2, 20 ],
+  "birthDay" : [ 2024, 11, 26 ],
   "borrowedBook" : [ {
-    "id" : "B003",
+    "id" : "2",
     "date" : [ 2023, 12, 3 ]
   } ]
+}, {
+  "id" : "s003",
+  "name" : "nguyen duc ha nha",
+  "gender" : "nam",
+  "phone" : "0334697661",
+  "department" : "CNTT",
+  "email" : "none",
+  "birthDay" : [ 2005, 6, 19 ],
+  "borrowedBook" : null
 } ]

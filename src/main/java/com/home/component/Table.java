@@ -32,16 +32,19 @@ public class Table extends Box{
     
     public void add(List<String> data) {
         datas.add(data);
+
         for (int i=0; i<data.size(); i++){
             if(data.get(i).length()+2>widths.get(i+1)){
                 widths.set(i+1, data.get(i).length()+2);
             }
         }
+        width=getW(widths.size()-1);
         height++;
     }
 
     public void clear(){
         datas.clear();
+        height=3;
     }
    
     private int getW(int index){
@@ -105,11 +108,13 @@ public class Table extends Box{
     public static void main(String[] args) {
         System.out.print("\033[H\033[2J");
         Table table = new Table(2,1);
-        table.setField_name(List.of("ID", "Name", "Age"));
-        table.add(List.of("N", "Nha", "19"));
-        table.add(List.of("M", "Miên", "19"));
-        table.add(List.of("H", "Hiền", "19"));
+        table.setField_name(List.of("ID", "tên sinh viên", "ngày sinh", "nghành học", "giới tính", "số điện thoại"));
+        table.add(List.of("S001", "Johm Done", "15-01-2000", "computer science", "main", "123456789"));
+        // table.add(List.of("N", "Nha", "19"));
+        // table.add(List.of("M", "Miên", "19"));
+        // table.add(List.of("H", "Hiền", "19"));
         table.draw();
+        
     }
     
     

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.home.component.Cursor;
 import com.home.dao.StudentDao;
+import com.home.form.GetStudentForm;
 import com.home.form.StudentForm;
 import com.home.models.Student;
 
@@ -26,7 +27,47 @@ public class StudentControl {
     }
 
     private void control(){
-        form.control();
+        int code;
+        while (true) { 
+            code= form.control();
+            switch(code) { 
+                case 0:
+                    add();
+                    break;
+                case 1:
+                    remove();
+                    break;
+                case 2:
+                    update();
+                    break;
+                case 3:
+                    return;
+                default :
+                    break;                
+            }
+        }
+    }
+    private void add(){
+        Cursor.clear();
+        Student student = GetStudentForm.getData();
+        students.add(student);
+        StudentDao.write(students);
+        Cursor.clear();
+        form.showData(students);
+    }
+    private void remove(){
+        Cursor.clear();
+        students = GetStudentForm.remove(students);
+        StudentDao.write(students);
+        Cursor.clear();
+        form.showData(students);
+    }
+    private void update(){
+        Cursor.clear();
+        students = GetStudentForm.update(students);
+        StudentDao.write(students);
+        Cursor.clear();
+        form.showData(students);
     }
 
     public static void main(String[] args) {

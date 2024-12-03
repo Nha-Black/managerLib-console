@@ -14,10 +14,12 @@ import com.home.models.Book;
 public class BookForm {
     private Button add;
     private Button remove;
-    private Button search;
+    private Button update;
+    private Button back;
     private Table table;
     private int index;
     private List<Button> buttons;
+    private final int number=4;
 
     public BookForm(){
         init();
@@ -28,12 +30,14 @@ public class BookForm {
 
         add = new Button(2, 2, "thêm sách");
         remove = new Button(add.getWidth()+add.getX()+3, 2, "xóa sách");
-        search = new Button(remove.getX()+remove.getWidth()+3, 2, "tìm sách");
+        update = new Button(remove.getX()+remove.getWidth()+3, 2, "tìm sách");
+        back = new Button(update.getX()+update.getWidth()+3, 2, "quay lại");
         table = new Table(3, 6);
         buttons = new ArrayList<>();
         buttons.add(add);
         buttons.add(remove);
-        buttons.add(search);
+        buttons.add(update);
+        buttons.add(back);
         index = 0 ;
         buttons.get(index).setSelected(Color.CYAN);
         table.setField_name(List.of("ID", "tên sách", "tác giả", "thể loại", "ngôn ngữ", "số lượng"));
@@ -43,8 +47,9 @@ public class BookForm {
         Cursor.topleft();
         add.draw();
         remove.draw();
-        search.draw();
+        update.draw();
         table.draw();
+        back.draw();
     }
 
     public void showData(List<Book> books){
@@ -57,8 +62,8 @@ public class BookForm {
     }
     private void controlMove(Key key){
         buttons.get(index).setSelected(Color.RESET);
-        if(key==Key.RIGHT) index = (index+1) % 3;
-        else if(key==Key.LEFT) index = (index-1+3) % 3;  
+        if(key==Key.RIGHT) index = (index+1) % number;
+        else if(key==Key.LEFT) index = (index-1+number) % number;  
         buttons.get(index).setSelected(Color.CYAN);
         draw();
     }

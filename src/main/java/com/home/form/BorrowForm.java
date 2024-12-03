@@ -9,63 +9,60 @@ import com.home.component.Cursor;
 import com.home.component.Key;
 import com.home.component.KeyPress;
 import com.home.component.Table;
-import com.home.models.Student;
-import com.home.util.DataProcess;
 
-public class StudentForm {
-    private Button add;
-    private Button remove;
-    private Button update;
+public class BorrowForm {
+    private Button borrow;
+    private Button give;
+    private Button check;
     private Button back;
     private Table table;
     private int index;
     private List<Button> buttons;
     private final int number=4;
-    // private Button selected;
 
-    public StudentForm(){
+    public BorrowForm(){
         init();
         draw();
     }
     private void init(){
         Cursor.hidden();
 
-        add = new Button(2, 2, "thêm sinh viên");
-        remove = new Button(add.getWidth()+add.getX()+3, 2, "xóa sinh viên");
-        update = new Button(remove.getX()+remove.getWidth()+3, 2, "chỉnh sửa");
-        back = new Button(update.getX()+update.getWidth()+3, 2, "quay lại");
+        borrow = new Button(2, 2, "mượn sách");
+        give = new Button(borrow.getWidth()+borrow.getX()+3, 2, "trả sách");
+        check = new Button(give.getX()+give.getWidth()+3, 2, "kiểm tra");
+        back = new Button(check.getX()+check.getWidth()+3, 2, "quay lại");
         table = new Table(3, 6);
         buttons = new ArrayList<>();
-        buttons.add(add);
-        buttons.add(remove);
-        buttons.add(update);
+        buttons.add(borrow);
+        buttons.add(give);
+        buttons.add(check);
         buttons.add(back);
         index = 0 ;
         buttons.get(index).setSelected(Color.CYAN);
-        table.setField_name(List.of("ID", "tên sinh viên", "ngày sinh", "nghành học", "giới tính", "số điện thoại"));
+        table.setField_name(List.of("ID","tên sinh viên", "ID", "tên sách", "thời gian mượn", "tình trạng"));
     }
 
     public void draw(){
         Cursor.topleft();
-        add.draw();
-        remove.draw();
-        update.draw();
-        back.draw();
+        borrow.draw();
+        give.draw();
+        check.draw();
         table.draw();
+        back.draw();
     }
 
-    public void showData(List<Student> students){
+    public void showData(List<List<String>> borrows){
         table.clear();
         Cursor.clear();
-        for(Student student : students){
-            table.add(List.of(student.getId(), student.getName(), DataProcess.dateToStr(student.getBirthDay()), student.getDepartment(), student.getGender(), student.getPhone()));
+        for(List<String> list : borrows){
+            table.add(list);
         }
         draw();
     }
     private void controlMove(Key key){
         buttons.get(index).setSelected(Color.RESET);
         if(key==Key.RIGHT) index = (index+1) % number;
-        else if(key==Key.LEFT) index = (index-1+number) % number;
+        else if(key==Key.LEFT) index = (index-1+number) % number;  
         buttons.get(index).setSelected(Color.CYAN);
         draw();
     }
@@ -81,7 +78,6 @@ public class StudentForm {
     }
     public static void main(String[] args) {
         Cursor.clear();
-        new StudentForm().control();
+        new BorrowForm().control();
     }
-    
 }

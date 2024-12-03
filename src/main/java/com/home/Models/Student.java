@@ -2,7 +2,7 @@
 package com.home.models;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
@@ -27,6 +27,7 @@ public class Student {
         this.department = department;
         this.email = email;
         this.birthDay = birthDay;
+        this.borrowedBook = new ArrayList<>();
     }
     
 
@@ -36,10 +37,20 @@ public class Student {
         this.borrowedBook = borrowedBook;
     }
 
-    public int borrow(Book book){
+    public int borrow(String id){
         if(borrowedBook.size()>borrowLimit) return -1;
-        borrowedBook.add(new Borrow(book.getId(), LocalDate.now()));
+        borrowedBook.add(new Borrow(id, LocalDate.now()));
         return 0;
+    }
+
+    public void give(String id){
+        if(borrowedBook==null || borrowedBook.size()==0) return;
+        for(Borrow borrow : borrowedBook){
+            if(borrow.getId().equals(id)){
+                borrowedBook.remove(borrow);
+                break;
+            }
+        }
     }
 
  
@@ -92,15 +103,21 @@ public class Student {
         this.email = email;
     }
 
-    public String getBirthDay() {
-        return birthDay.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    public LocalDate getBirthDay() {
+        return birthDay;
     }
 
     public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
     
+    public List<Borrow> getBorrowedBook() {
+        return borrowedBook;
+    }
 
+    public void setBorrowedBook(List<Borrow> borrowedBook) {
+        this.borrowedBook = borrowedBook;
+    }
 
     @Override
     public String toString() {
@@ -116,11 +133,4 @@ public class Student {
                 '}';
     }
 
-    public List<Borrow> getBorrowedBook() {
-        return borrowedBook;
-    }
-
-    public void setBorrowedBook(List<Borrow> borrowedBook) {
-        this.borrowedBook = borrowedBook;
-    }
 }

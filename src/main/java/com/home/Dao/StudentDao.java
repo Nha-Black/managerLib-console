@@ -31,10 +31,6 @@ public class StudentDao {
                     new File("./src/main/resources/students.json"),
                     new TypeReference<List<Student>>() {}
             );
-
-            for (Student student : students) {
-                System.out.println(student);
-            }
 			return students;
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,7 +38,7 @@ public class StudentDao {
 		return null;
 	}
     public static void main(String[] args) {
-        read();
+        System.out.println(read().size());
     }
 
 }
