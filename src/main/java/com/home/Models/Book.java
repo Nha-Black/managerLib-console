@@ -1,5 +1,5 @@
 
-package Models;
+package com.home.models;
 
 public class Book {
 	private String id;
@@ -11,6 +11,9 @@ public class Book {
 	private String genre;
 	private int available;
 	private int pageCount;
+
+	public Book() {
+	}
 
 	public Book(String id, String title, String author, String publisher, String publicationYear, String language,
 			String genre, int available, int pageCount) {
@@ -100,7 +103,16 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book " + id + ", " + title + ", " + author + ", " + publisher + ", " + publicationYear + ", " + language
-				+ ", " + genre + ", " + available + ", " + pageCount;
-	}
+        return "Book{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", publicationYear='" + publicationYear + '\'' +
+                ", language='" + language + '\'' +
+                ", genre='" + genre + '\'' +
+                ", available=" + available +
+                ", pageCount=" + pageCount +
+                '}';
+    }
 }

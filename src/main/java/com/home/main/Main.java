@@ -1,8 +1,8 @@
 package com.home.main;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 
+import com.home.control.LoginControl;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
@@ -33,13 +33,7 @@ public class Main {
 
     public static void main(String[] args) {
         setOuput();
-        String str;
-        System.out.println("file.encoding: " + System.getProperty("file.encoding"));
-        System.out.println("sun.stdout.encoding: " + System.getProperty("sun.stdout.encoding"));
-        System.out.println("sun.stderr.encoding: " + System.getProperty("sun.stderr.encoding"));
-        Scanner sca = new Scanner(System.in, "UTF-8");
-        System.out.print("nhập tên: ");
-        str = sca.nextLine();
-        System.out.println(str);
+        new LoginControl();
+        
     }
 }

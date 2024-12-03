@@ -12,4 +12,11 @@ public class Cursor {
     public static void expose(){
         System.out.println("\033[?25h");
     }
+
+    public static void clear(){
+        System.out.print("\033[H\033[2J");
+    }
+    public static void topleft(){
+        System.out.print("\033[H");
+    }
 }

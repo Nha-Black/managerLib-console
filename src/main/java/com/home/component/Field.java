@@ -2,6 +2,7 @@ package com.home.component;
 
 public class Field extends Box {
     private String text;
+    private String textColor = Color.RESET;
 
     public Field(int x, int y, int width, int height) {       
         super(x, y, width, height);
@@ -15,7 +16,7 @@ public class Field extends Box {
     }
     public void drawText(){
         Cursor.move(x+1, y+1); 
-        System.out.print(text);
+        System.out.print(Color.apply(color, text));
     }
     public void enter(Key key){
         if(key.getCode()==8){
@@ -37,7 +38,9 @@ public class Field extends Box {
     public void setText(String text) {
         this.text = text;
     }
-    
-    
+
+    public void setTextColor(String textColor) {
+        this.textColor = textColor;
+    }
     
 }

@@ -1,0 +1,21 @@
+[ {
+  "id" : "1",
+  "title" : "Book One",
+  "author" : "Author One",
+  "publisher" : "Publisher One",
+  "publicationYear" : "2020",
+  "language" : "English",
+  "genre" : "Fiction",
+  "available" : 5,
+  "pageCount" : 300
+}, {
+  "id" : "2",
+  "title" : "Book Two",
+  "author" : "Author Two",
+  "publisher" : "Publisher Two",
+  "publicationYear" : "2019",
+  "language" : "French",
+  "genre" : "Non-fiction",
+  "available" : 2,
+  "pageCount" : 250
+} ]

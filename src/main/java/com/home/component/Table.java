@@ -39,6 +39,10 @@ public class Table extends Box{
         }
         height++;
     }
+
+    public void clear(){
+        datas.clear();
+    }
    
     private int getW(int index){
         int sum=0;

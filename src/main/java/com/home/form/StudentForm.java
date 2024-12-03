@@ -9,26 +9,27 @@ import com.home.component.Cursor;
 import com.home.component.Key;
 import com.home.component.KeyPress;
 import com.home.component.Table;
-import com.home.models.Book;
+import com.home.models.Student;
 
-public class BookForm {
+public class StudentForm {
     private Button add;
     private Button remove;
     private Button search;
     private Table table;
     private int index;
     private List<Button> buttons;
+    // private Button selected;
 
-    public BookForm(){
+    public StudentForm(){
         init();
         draw();
     }
     private void init(){
         Cursor.hidden();
 
-        add = new Button(2, 2, "thêm sách");
-        remove = new Button(add.getWidth()+add.getX()+3, 2, "xóa sách");
-        search = new Button(remove.getX()+remove.getWidth()+3, 2, "tìm sách");
+        add = new Button(2, 2, "thêm sinh viên");
+        remove = new Button(add.getWidth()+add.getX()+3, 2, "xóa sinh viên");
+        search = new Button(remove.getX()+remove.getWidth()+3, 2, "tìm sinh viên");
         table = new Table(3, 6);
         buttons = new ArrayList<>();
         buttons.add(add);
@@ -36,7 +37,7 @@ public class BookForm {
         buttons.add(search);
         index = 0 ;
         buttons.get(index).setSelected(Color.CYAN);
-        table.setField_name(List.of("ID", "tên sách", "tác giả", "thể loại", "ngôn ngữ", "số lượng"));
+        table.setField_name(List.of("ID", "tên sinh viên", "ngày sinh", "nghành học", "giới tính", "số điện thoại"));
     }
 
     public void draw(){
@@ -47,18 +48,18 @@ public class BookForm {
         table.draw();
     }
 
-    public void showData(List<Book> books){
+    public void showData(List<Student> students){
         table.clear();
         Cursor.clear();
-        for(Book book : books){
-            table.add(List.of(book.getId(), book.getTitle(), book.getAuthor(), book.getGenre(), book.getLanguage(), String.valueOf(book.getAvailable())));
+        for(Student student : students){
+            table.add(List.of(student.getId(), student.getName(), student.getBirthDay(), student.getDepartment(), student.getGender(), student.getPhone()));
         }
         draw();
     }
     private void controlMove(Key key){
         buttons.get(index).setSelected(Color.RESET);
         if(key==Key.RIGHT) index = (index+1) % 3;
-        else if(key==Key.LEFT) index = (index-1+3) % 3;  
+        else if(key==Key.LEFT) index = (index-1+3) % 3;
         buttons.get(index).setSelected(Color.CYAN);
         draw();
     }
@@ -74,6 +75,7 @@ public class BookForm {
     }
     public static void main(String[] args) {
         Cursor.clear();
-        new BookForm().control();
+        new StudentForm().control();
     }
+    
 }

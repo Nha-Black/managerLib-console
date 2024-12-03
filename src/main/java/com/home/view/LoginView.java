@@ -2,11 +2,13 @@ package com.home.view;
 
 import com.home.component.Box;
 import com.home.component.Button;
+import com.home.component.Color;
 import com.home.component.Cursor;
 import com.home.component.Field;
 import com.home.component.Key;
 import com.home.component.KeyPress;
 import com.home.component.Label;
+import com.home.models.Account;
 
 public class LoginView{
     private String user;
@@ -21,6 +23,7 @@ public class LoginView{
     private static Button but;
     public LoginView(){
         init();
+        Cursor.clear();
         draw();
     }
     private void init(){
@@ -36,9 +39,9 @@ public class LoginView{
         selected= userField;
         selected.setColor("\033[36m");
     }
+    
     private static void draw(){
-        System.out.print("\033[H");//xóa màn hình console
-        // System.out.flush(); 
+        System.out.print("\033[H");
         
         userField.draw();
         passField.draw();
@@ -73,7 +76,8 @@ public class LoginView{
         draw();
         Cursor.move(selected.getX()+text.length()+1, selected.getY()+1);
     }
-    private static void control(){
+    
+    public Account control(){
         Cursor.move(selected.getX()+1, selected.getY()+1);
         Key key;
         while(true){
@@ -84,9 +88,7 @@ public class LoginView{
                 }
                 else if(key==Key.ENTER){
                     if (selected==but){
-                        Cursor.move(1, selected.getY()+3);
-                        System.out.println(userField.getText());
-                        System.out.println(passField.getText());
+                        return new Account(userField.getText(), passField.getText());
                     }
                     break;
                 } else if(key==Key.OTHER){   
@@ -98,6 +100,14 @@ public class LoginView{
                 }  
             }
         }
+        return null;
+    }
+    
+    public void mess(String mess){
+        userField.setTextColor(Color.RED);
+        userField.setText(mess);
+        userField.drawText();
+        userField.setTextColor(Color.RESET);
     }
     public static void main(String[] args) {
         // try {
@@ -105,8 +115,8 @@ public class LoginView{
         // } catch (Exception e) {
         //     e.printStackTrace();
         // }
-        System.out.print("\033[H\033[2J");
-        new LoginView();
-        control();
+        Cursor.clear();
+        LoginView view = new LoginView();
+        view.control();
     }
 }

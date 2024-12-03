@@ -1,0 +1,28 @@
+[ {
+  "id" : "S001",
+  "name" : "John Doe",
+  "gender" : "Male",
+  "phone" : "123456789",
+  "department" : "Computer Science",
+  "email" : "johndoe@example.com",
+  "birthDay" : [ 2000, 1, 15 ],
+  "borrowedBook" : [ {
+    "id" : "B001",
+    "date" : [ 2023, 12, 1 ]
+  }, {
+    "id" : "B002",
+    "date" : [ 2023, 12, 2 ]
+  } ]
+}, {
+  "id" : "S002",
+  "name" : "Jane Doe",
+  "gender" : "Female",
+  "phone" : "987654321",
+  "department" : "Mathematics",
+  "email" : "janedoe@example.com",
+  "birthDay" : [ 2001, 2, 20 ],
+  "borrowedBook" : [ {
+    "id" : "B003",
+    "date" : [ 2023, 12, 3 ]
+  } ]
+} ]

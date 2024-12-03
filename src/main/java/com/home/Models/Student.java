@@ -1,7 +1,8 @@
 
-package Models;
+package com.home.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Student {
@@ -12,9 +13,11 @@ public class Student {
     private String department;
     private String email;
     private LocalDate birthDay;
-    private List<String> borrowBook;
-    private int borrowLimit;
+    private List<Borrow> borrowedBook;
+    private final int borrowLimit = 5;
     
+    public Student() {
+    }
 
     public Student(String id, String name, String gender, String phone, String department, String email, LocalDate birthDay) {
         this.id = id;
@@ -24,6 +27,19 @@ public class Student {
         this.department = department;
         this.email = email;
         this.birthDay = birthDay;
+    }
+    
+
+    public Student(String id, String name, String gender, String phone, String department, String email,
+            LocalDate birthDay, List<Borrow> borrowedBook) {
+        this(id, name, gender, phone, department, email, birthDay);
+        this.borrowedBook = borrowedBook;
+    }
+
+    public int borrow(Book book){
+        if(borrowedBook.size()>borrowLimit) return -1;
+        borrowedBook.add(new Borrow(book.getId(), LocalDate.now()));
+        return 0;
     }
 
  
@@ -76,33 +92,35 @@ public class Student {
         this.email = email;
     }
 
-    public LocalDate getBirthDay() {
-        return birthDay;
+    public String getBirthDay() {
+        return birthDay.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
     public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
+    
 
-    public List<String> getBorrowBook() {
-        return borrowBook;
-    }
-
-    public void setBorrowBook(List<String> borrowBook) {
-        this.borrowBook = borrowBook;
-    }
-
-    public int getBorrowLimit() {
-        return borrowLimit;
-    }
-
-    public void setBorrowLimit(int borrowLimit) {
-        this.borrowLimit = borrowLimit;
-    }
 
     @Override
     public String toString() {
-        return "Student " + id + ", " + name + ", " + gender + ", " + phone + ", " + department + ", " + email + ", "
-                + birthDay + ", " + borrowBook + ", " + borrowLimit;
+        return "Student{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", phone='" + phone + '\'' +
+                ", department='" + department + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDay=" + birthDay +
+                ", borrowedBook=" + borrowedBook +
+                '}';
+    }
+
+    public List<Borrow> getBorrowedBook() {
+        return borrowedBook;
+    }
+
+    public void setBorrowedBook(List<Borrow> borrowedBook) {
+        this.borrowedBook = borrowedBook;
     }
 }

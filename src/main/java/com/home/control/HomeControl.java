@@ -1,18 +1,20 @@
-package control;
-
-import models.Book;
-import models.Student;
+package com.home.control;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.home.dao.BookDao;
+import com.home.dao.StudentDao;
+import com.home.models.Book;
+import com.home.models.Student;
 
 public class HomeControl {
     private List<Book> books;
     private List<Student> students;
 
+
     public HomeControl() {
-        this.books = new ArrayList<>();
-        this.students = new ArrayList<>();
+
     }
 
     public void addBook(Book book) {
@@ -21,6 +23,12 @@ public class HomeControl {
 
     public void addStudent(Student student) {
         students.add(student);
+    }
+    private void init(){
+        books = new ArrayList<>();
+        students = new ArrayList<>();
+        books = BookDao.read();
+        // students = StudentDao.read();
     }
 
 
@@ -39,19 +47,9 @@ public class HomeControl {
         }
     }
 
-    public void updateStudent(List<Student> updatedStudents) {
-        for (Student updatedStudent : updatedStudents) {
-            for (Student student : students) {
-                if (student.getId().equals(updatedStudent.getId())) {
-                    student.setName(updatedStudent.getName());
-                    student.setBirthDay(updatedStudent.getBirthDay());
-                    student.setGender(updatedStudent.getGender());
-                    student.setPhone(updatedStudent.getPhone());
-                    student.setDepartment(updatedStudent.getDepartment());
-                    student.setEmail(updatedStudent.getEmail());
-                }
-            }
-        }
+    public void updateStudent(List<Student> students) {
+        this.students = students;
+        StudentDao.write(students);
     }
 
 
@@ -77,9 +75,9 @@ public class HomeControl {
     public List<Student> checkOverTime() {
         List<Student> overTimeStudents = new ArrayList<>();
         for (Student student : students) {
-            if (student.getBorrowBook().size() > student.getBorrowLimit()) {
-                overTimeStudents.add(student);
-            }
+            // if (student.getBorrowBook().size() > student.getBorrowLimit()) {
+            //     overTimeStudents.add(student);
+            // }
         }
         return overTimeStudents;
     }
